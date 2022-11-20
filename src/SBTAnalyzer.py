@@ -10,14 +10,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-path_video = '../data/Test-B02.avi'
+path_video = '../data/Test-R2.avi'
 
 # the prefix of the file to be saved
 fname = os.path.basename(path_video).split('.')[0]
 
+ # Those in the range of lo to hi are considered bacteria(Parameters in Step 2)
+lo, hi = 30, 90
+
+
 ########################################################################
 # step1: obtain each frame of the video
 ########################################################################
+
+print("obtain each frame of the video")
 
 videoCapture = cv2.VideoCapture(path_video)
 frames = []
@@ -28,17 +34,13 @@ while True:
     else:
         break
 
-print("Success to read each frame")
-
-print("Start to process")
-
 height, width, _ = frames[0].shape
+
 
 
 k3c = np.array([[0, 1, 0],
                 [1, 0, 1],
                 [0, 1, 0]], dtype=bool)
-
 k7c = np.array([[0, 0, 0, 1, 0, 0, 0],
                 [0, 0, 1, 1, 1, 0, 0],
                 [0, 1, 1, 1, 1, 1, 0],
@@ -129,6 +131,8 @@ def find_center(outline):
 # step2: Process each frame to obtain the details
 ########################################################################
 
+print("step2: Process each frame to obtain the details")
+
 # TODO: Verify that frames are almost superimposed on each other
 details = []
 tic = time.time()
@@ -193,10 +197,8 @@ for ii, frame in enumerate(frames):
     Third:
         After finding the corresponding, how to cut?  (Do not cut, when disappear processing)  
 '''
+print("step3: Generate a preliminary trajectory")
 
-
-
-lo, hi = 30, 90 # Those in the range of 30 to 90 are considered bacteria
 tracks = [] # Frame of number.x
 centers = []
 speeds = []
@@ -267,6 +269,7 @@ for i, (edges, labels, area) in enumerate(details):
 ########################################################################
 # step4: Merge the similar frames
 ########################################################################
+print("step4: Merge the similar frames")
 
 # similar frames: nearer frame and no overlap,less difference of speed and position
 comb = {}
@@ -287,8 +290,7 @@ for i, seq in enumerate(tracks):
 ########################################################################
 # step5: Save data
 ########################################################################
-with open('../outputs/{}_yxt.pkl'.format(fname), 'wb') as f:
-    pickle.dump(outputs, f)
+print("step5: Save data to the folder of ./outputs")
 
 df = pd.DataFrame(outputs)
 df.to_excel('../outputs/{}_yxt.xlsx'.format(fname))

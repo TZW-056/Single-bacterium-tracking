@@ -1,0 +1,38 @@
+卷 Windows 的文件夹 PATH 列表
+卷序列号为 00000228 1EFC:F824
+C:.
+│  .gitignore
+│  README.md
+│  requirements.txt
+│  tree.txt
+│  
+├─.idea
+│  │  misc.xml
+│  │  modules.xml
+│  │  Single-bacterium-tracking.iml
+│  │  vcs.xml
+│  │  workspace.xml
+│  │  
+│  └─inspectionProfiles
+├─data
+│      Test-B02.avi
+│      Test.avi
+│      
+├─outputs
+│      100f.png
+│      30f.png
+│      50f.png
+│      B20.png
+│      Test-B02_yxt.pkl
+│      Test-B02_yxt.xlsx
+│      Test_yxt.pkl
+│      Test_yxt.xlsx
+│      
+├─src
+│      Plot.py
+│      SBTAnalyzer.py
+│      utils.py
+│      
+└─__pycache__
+        utils.cpython-39.pyc
+        

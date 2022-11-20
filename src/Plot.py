@@ -2,11 +2,12 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle
+import pandas as pd
+import json
 
 def plot(Data,pixel_size,frames):
     for traj in Data:
-        if len(traj) >= 100:
+        if len(traj) >= frames:
             traj = np.array(traj) * pixel_size / 1000
             plt.plot(traj[:frames, 0], traj[:frames, 1])
     
@@ -19,11 +20,18 @@ def plot(Data,pixel_size,frames):
     plt.show()
     
 if __name__ == '__main__':
-    f = open('../outputs/Test-B02_yxt.pkl','rb')
-    Data = pickle.load(f)
+    data = pd.read_excel('../outputs/Test-R2_yxt.xlsx',index_col=0)
+    temp_Data = np.array(data).tolist()
+    
+    Data = []
+    for traj in temp_Data:
+        str_traj = [i for i in traj if not pd.isnull(i)]
+        list_traj = [json.loads(i) for i in str_traj ]
+        Data.append(list_traj)
+    
     pixel_size = 135.1 # unit: nm
     dt = 1/19.86  # 19.86 frames/s
-    frames = 30
+    frames = 30  # the num of frames recording the trajectory
     
     plot(Data,pixel_size,frames)
 
