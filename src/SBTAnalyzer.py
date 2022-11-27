@@ -15,9 +15,6 @@ path_video = '../data/Test-R2.avi'
 # the prefix of the file to be saved
 fname = os.path.basename(path_video).split('.')[0]
 
- # Those in the range of lo to hi are considered bacteria(Parameters in Step 2)
-lo, hi = 30, 90
-
 
 ########################################################################
 # step1: obtain each frame of the video
@@ -35,7 +32,6 @@ while True:
         break
 
 height, width, _ = frames[0].shape
-
 
 
 k3c = np.array([[0, 1, 0],
@@ -131,8 +127,10 @@ def find_center(outline):
 # step2: Process each frame to obtain the details
 ########################################################################
 
-print("step2: Process each frame to obtain the details")
+# Those in the range of lo to hi are considered bacteria(Parameters in Step 2)
+lo, hi = 30, 90
 
+print("step2: Process each frame to obtain the details")
 # TODO: Verify that frames are almost superimposed on each other
 details = []
 tic = time.time()

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import json
 
-def plot(Data,pixel_size,frames):
+def plot1(Data,pixel_size,frames):
     for traj in Data:
         if len(traj) >= frames:
             traj = np.array(traj) * pixel_size / 1000
@@ -18,9 +18,27 @@ def plot(Data,pixel_size,frames):
     plt.xticks(fontsize = 12)
     plt.rcParams['figure.dpi'] = 600
     plt.show()
+
+
+def plot2(Data,pixel_size,frames):
+    for traj in Data:
+        traj = np.array(traj) * pixel_size / 1000
+        if len(traj) <= frames:
+            plt.plot(traj[:, 0], traj[:, 1])
+        else:
+            plt.plot(traj[:frames, 0], traj[:frames, 1])
+    plt.axis('scaled')
+    plt.ylabel('y(${\mu}m$)', fontsize=17)
+    plt.xlabel('x(${\mu}m$)', fontsize=17)
+    plt.yticks(fontsize=12)
+    plt.xticks(fontsize = 12)
+    plt.rcParams['figure.dpi'] = 600
+    plt.show()
     
+
 if __name__ == '__main__':
-    data = pd.read_excel('../outputs/Test-R2_yxt.xlsx',index_col=0)
+    data = pd.read_excel('../outputs/Test-B02_yxt.xlsx',index_col=0)
+    
     temp_Data = np.array(data).tolist()
     
     Data = []
@@ -31,8 +49,8 @@ if __name__ == '__main__':
     
     pixel_size = 135.1 # unit: nm
     dt = 1/19.86  # 19.86 frames/s
-    frames = 30  # the num of frames recording the trajectory
+    frames = 100  # the num of frames recording the trajectory
     
-    plot(Data,pixel_size,frames)
+    plot2(Data,pixel_size,frames)
 
 

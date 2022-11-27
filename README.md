@@ -1,6 +1,6 @@
 # Install
 
-Clone this repositoryand install requirements.txt
+Clone this repository and install requirements.txt
 
 ```bash
 $ git clone https://github.com/TZW-056/Single-bacterium-tracking.git
@@ -42,5 +42,3 @@ NOTE: `Test-B02.avi` and `Test-R2.avi` were obtained by `ffmpeg`.
 # License
 
 [Apache Licence 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-
